@@ -17,7 +17,7 @@ sed -i 's/no-rc5 zlib/no-rc5 no-zlib/' debian/rules
 sed -i 's/no-shared/no-shared no-ssl2 no-ssl3 no-zlib-dynamic/' debian/rules
 
 # build, this will take a while
-DEB_BUILD_OPTI ONS=nocheck dpkg-buildpackage -us -uc
+DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc
 
 # extract the deb packages to a directory
 cd ..
