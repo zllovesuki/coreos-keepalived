@@ -4,20 +4,20 @@
 set -eo pipefail
 
 # download openssl
-wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz
-wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u20.debian.tar.gz
+wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1t.orig.tar.gz
+wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1t-1+deb8u6.debian.tar.xz
 
 # extract
-tar xf openssl_1.0.1e.orig.tar.gz
-cd openssl-1.0.1e/
-tar xf ../openssl_1.0.1e-2+deb7u20.debian.tar.gz
+tar xf openssl_1.0.1t.orig.tar.gz
+cd openssl-1.0.1t/
+tar xf ../openssl_1.0.1t-1+deb8u6.debian.tar.xz
 
 # disable features
 sed -i 's/no-rc5 zlib/no-rc5 no-zlib/' debian/rules
 sed -i 's/no-shared/no-shared no-ssl2 no-ssl3 no-zlib-dynamic/' debian/rules
 
 # build, this will take a while
-DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc
+DEB_BUILD_OPTI ONS=nocheck dpkg-buildpackage -us -uc
 
 # extract the deb packages to a directory
 cd ..
