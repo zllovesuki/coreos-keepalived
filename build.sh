@@ -5,12 +5,12 @@ set -eo pipefail
 
 # download openssl
 wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e.orig.tar.gz
-wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u13.debian.tar.gz
+wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/openssl_1.0.1e-2+deb7u20.debian.tar.gz
 
 # extract
 tar xf openssl_1.0.1e.orig.tar.gz
 cd openssl-1.0.1e/
-tar xf ../openssl_1.0.1e-2+deb7u13.debian.tar.gz
+tar xf ../openssl_1.0.1e-2+deb7u20.debian.tar.gz
 
 # disable features
 sed -i 's/no-rc5 zlib/no-rc5 no-zlib/' debian/rules
@@ -31,18 +31,17 @@ for datfile in ../*.deb; do
   tar xf data.tar
 done
 
-SOURCE_KEEPALIVED=https://github.com/acassen/keepalived/archive/v1.2.13.tar.gz
+SOURCE_KEEPALIVED=http://www.keepalived.org/software/keepalived-1.3.5.tar.gz
 
 # grab the source files
 wget -P . $SOURCE_KEEPALIVED --no-check-certificate
 
-tar xzf v1.2.13.tar.gz
+tar xzf keepalived-1.3.5.tar.gz
 
-cd keepalived-1.2.13
+cd keepalived-1.3.5
 
 CFLAGS="-I/tmp/patched-openssl/usr/include" LDFLAGS="-L/tmp/patched-openssl/usr/lib -lssl -lz -ldl" ./configure
 
 make SHARED=0 CC='gcc -static'
 
 cp bin/* /tmp
-
